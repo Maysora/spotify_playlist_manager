@@ -22,3 +22,18 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+# ENV variables
+
+- RACK_ENV
+- RAILS_ENV
+- DATABASE_HOST
+- DATABASE_USERNAME
+- DATABASE_PASSWORD
+- RAILS_MAX_THREADS
+- APP_HOST
+- PORT
+- APP_EMAIL
+- SPOTIFY_CLIENT_ID
+- SPOTIFY_CLIENT_SECRET
