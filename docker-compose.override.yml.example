@@ -1,0 +1,6 @@
+version: '3'
+services:
+  web:
+    environment:
+      SPOTIFY_CLIENT_ID: xxx
+      SPOTIFY_CLIENT_SECRET: xxx
