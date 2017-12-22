@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    <%= image_tag playlist.images.first.url, alt: 'playlist image', class: 'playlist-image' if playlist.images.first %>
+  </td>
+  <td>
+    <%= playlist.id %>
+  </td>
+  <td>
+    <%= playlist.name %>
+  </td>
+  <td>
+    <%= playlist.tracks_count %>
+  </td>
+  <td>
+    <%= playlist.owner.id %>
+  </td>
+  <td>
+    <%= playlist.collaborative %>
+  </td>
+  <td>
+    <%= playlist.public %>
+  </td>
+</tr>

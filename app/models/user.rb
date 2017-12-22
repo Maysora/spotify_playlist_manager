@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   has_one :spotify_configuration
 
+  delegate :token, to: :spotify_configuration, prefix: :spotify, allow_nil: true
+
   def self.from_omniauth(auth)
     user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -18,5 +20,9 @@ class User < ApplicationRecord
       token: credentials.token,
       refresh_token: credentials.refresh_token,
       expires_at: Time.at(credentials.expires_at))
+  end
+
+  def playlists(params = {})
+    SpotifyApi::Playlist.all(params: params)
   end
 end

@@ -1,60 +1,52 @@
 # Spotify API Wrapper
 # TODO:
-# - playlist APIs (https://developer.spotify.com/web-api/endpoint-reference/)
-# - - https://beta.developer.spotify.com/console/get-current-user-playlists/
-# - - https://beta.developer.spotify.com/console/get-playlist-tracks/
-# - - https://beta.developer.spotify.com/console/post-playlist-followers-contains/
-# - - https://beta.developer.spotify.com/console/post-playlist-tracks/
-# - handle API errors (https://developer.spotify.com/web-api/user-guide/#responses) using resp.code
+# - handle API errors (https://developer.spotify.com/web-api/user-guide/#responses)
 # - use async job to handle rate limiting (https://developer.spotify.com/web-api/user-guide/#rate-limiting)
-class SpotifyApi
-  include HTTParty
-  base_uri 'https://accounts.spotify.com/api'
+require 'net/https'
+require 'uri'
 
+class SpotifyApi
   attr_reader :options
 
   def initialize(client_id: ENV['SPOTIFY_CLIENT_ID'], client_secret: ENV['SPOTIFY_CLIENT_SECRET'])
-    @options = { basic_auth: { username: client_id, password: client_secret } }
+    @basic_auth = [client_id, client_secret]
   end
 
   def token(refresh_token:)
-    resp = self.class.post("/token", options.merge(
-            body: {
-              grant_type: 'refresh_token',
-              refresh_token: refresh_token}))
-    if resp.success?
-      resp.parsed_response
+    req = Net::HTTP::Post.new('/api/token')
+    req.set_form_data({
+      grant_type: 'refresh_token',
+      refresh_token: refresh_token
+    })
+    res = request(req)
+    if res.code =~ /\A2\d+/
+      JSON.parse(res.body)
+    elsif res.code =~ /\A4\d+/
+      body = JSON.parse(res.body)
+      raise RequestError.new(res.code + (body['error_description'].presence || @body['error'].try(:[], 'message')))
     else
-      response_error(resp)
+      raise Error.new("Unexpected error when refreshing token (#{res.code}): #{res.body}")
     end
+  rescue Timeout::Error => e
+    raise
+  rescue OpenSSL::SSL::SSLError => e
+    raise
+  end
+
+  def request(req)
+    req.basic_auth *@basic_auth
+    http.request(req)
   end
 
   private
 
-  def response_error(resp)
-    case resp.code
-    when 400
-      raise RequestError.new(resp)
-    # when 401 # invalid token
-    # when 403
-    # when 404
-    # when 429 # rate limited
-    else
-      raise Error.new("Unexpected error: #{resp.inspect}")
-    end
+  def http(uri = URI('https://accounts.spotify.com'))
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.open_timeout = http.read_timeout = 20.seconds
+    http
   end
 
   class Error < ::StandardError ; end
-  class RequestError < Error
-    attr_reader :code, :body
-
-    def initialize(data)
-      @code = data.code
-      @body = data.parsed_response
-    end
-
-    def to_s
-      code.to_s + (body['error_description'].presence || @body['error'].try(:[], 'message'))
-    end
-  end
+  class RequestError < Error ; end
 end

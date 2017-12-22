@@ -38,7 +38,9 @@ gem 'devise'
 gem 'omniauth-spotify'
 
 # For Spotify Rest API
-gem 'httparty'
+gem 'request_store'
+gem 'activeresource'
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,0 +1,6 @@
+<% content_for :kaminari_rel, rel_next_prev_link_tags(@playlists) %>
+<%= paginate @playlists %>
+<%= page_entries_info @playlists, entry_name: 'playlist' %>
+<table>
+  <%= render partial: 'playlist', collection: @playlists %>
+</table>

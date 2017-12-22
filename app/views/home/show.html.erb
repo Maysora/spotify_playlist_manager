@@ -1,12 +1,2 @@
 <h1>Home#show</h1>
 <p>Find me in app/views/home/show.html.erb</p>
-<% if user_signed_in? %>
-  <p>
-    Welcome,
-    <%= current_user.nickname %>
-    (<%= current_user.email %>)
-  </p>
-  <%= link_to 'Logout', logout_path, method: :delete %>
-<% else %>
-  <%= link_to "Sign in with Spotify", user_spotify_omniauth_authorize_path %><br />
-<% end %>
