@@ -1,28 +1,18 @@
-# README
+# Spotify Playlist Manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails application for managing playlists on spotify.
 
-Things you may want to cover:
+This is a personal weekend project so progress will be slow ;)
 
-* Ruby version
+# Goals
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
+- ~~OAuth login~~
+- ~~Displaying playlists~~
+- Displaying playlist tracks [WIP]
+- Adding/removing tracks from playlist
+- Combine multiple playlists into one with periodical auto sync
+- Nicer UI
+- ???
 
 # ENV variables
 
