@@ -6,7 +6,7 @@
     <%= playlist.id %>
   </td>
   <td>
-    <%= link_to playlist.name, playlist_tracks_path(playlist_id: playlist.id) %>
+    <%= link_to playlist.name, playlist_tracks_path(playlist_id: playlist) %>
   </td>
   <td>
     <%= playlist.tracks_count %>

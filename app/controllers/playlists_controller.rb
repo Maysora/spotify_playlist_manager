@@ -5,6 +5,7 @@ class PlaylistsController < ApplicationController
 
   # not necessary?
   def show
-    @playlist = SpotifyApi::Playlist.find(params[:id], {user_id: current_user.spotify_id})
+    id, user_id = spotify_api_id(params[:id])
+    @playlist = SpotifyApi::Playlist.find(id, {user_id: current_user.spotify_id})
   end
 end

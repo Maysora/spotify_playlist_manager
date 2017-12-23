@@ -13,6 +13,9 @@ class SpotifyApi::Playlist < SpotifyApi::Base
     attributes['tracks'].total
   end
 
+  def to_param
+    "#{owner.id}>#{id}"
+  end
 
   def self.find_single(scope, options)
     options[:from] = "/v1/users/#{options.delete(:user_id)}/playlists/#{scope}"

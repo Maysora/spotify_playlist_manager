@@ -29,4 +29,13 @@ class ApplicationController < ActionController::Base
     end
     redirect_to root_path, alert: message
   end
+
+
+  # helper
+
+
+  def spotify_api_id id
+    user_id, _sep, id = id.rpartition('>')
+    [id, user_id]
+  end
 end
