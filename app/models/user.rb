@@ -7,10 +7,11 @@ class User < ApplicationRecord
   delegate :token, to: :spotify_configuration, prefix: :spotify, allow_nil: true
 
   def self.from_omniauth(auth)
-    user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.nickname = auth.info.nickname
-    end
+    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
+    user.update(
+      email: auth.info.email,
+      nickname: auth.info.nickname,
+      spotify_id: auth.uid)
     user.update_spotify_configuration!(auth.credentials) if user.persisted?
     user
   end
@@ -20,9 +21,5 @@ class User < ApplicationRecord
       token: credentials.token,
       refresh_token: credentials.refresh_token,
       expires_at: Time.at(credentials.expires_at))
-  end
-
-  def playlists(params = {})
-    SpotifyApi::Playlist.all(params: params)
   end
 end

@@ -1,6 +1,10 @@
 class SpotifyApi::Playlist < SpotifyApi::Base
   self.site = "https://api.spotify.com/v1/me"
 
+  def self.default_per_page
+    50
+  end
+
   def tracks
     SpotifyApi::PlaylistTrack.all(params: {user_id: owner.id, playlist_id: id})
   end
@@ -9,8 +13,10 @@ class SpotifyApi::Playlist < SpotifyApi::Base
     attributes['tracks'].total
   end
 
-  def self.default_per_page
-    50
+
+  def self.find_single(scope, options)
+    options[:from] = "/v1/users/#{options.delete(:user_id)}/playlists/#{scope}"
+    find_one(options)
   end
 
   protected

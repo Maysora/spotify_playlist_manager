@@ -8,7 +8,7 @@ This is a personal weekend project so progress will be slow ;)
 
 - ~~OAuth login~~
 - ~~Displaying playlists~~
-- Displaying playlist tracks [WIP]
+- ~~Displaying playlist tracks~~
 - Adding/removing tracks from playlist
 - Combine multiple playlists into one with periodical auto sync
 - Nicer UI

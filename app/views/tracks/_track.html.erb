@@ -1,0 +1,22 @@
+<tr>
+  <td>
+    <%= track.track.id %>
+  </td>
+  <td>
+    <%= track.track.artists.map(&:name).join(', ') %>
+    -
+    <%= track.track.name %>
+  </td>
+  <td>
+    <%= track.track.popularity %>
+  </td>
+  <td>
+    <%= track.is_local %>
+  </td>
+  <td>
+    <%= Time.zone.parse(track.added_at).to_s(:long) %>
+  </td>
+  <td>
+    <%= track.added_by.id %>
+  </td>
+</tr>

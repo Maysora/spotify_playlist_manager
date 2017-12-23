@@ -1,0 +1,7 @@
+<!-- https://beta.developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/ -->
+<% content_for :kaminari_rel, rel_next_prev_link_tags(@tracks) %>
+<%= paginate @tracks %>
+<%= page_entries_info @tracks, entry_name: 'track' %>
+<table>
+  <%= render partial: 'track', collection: @tracks %>
+</table>
