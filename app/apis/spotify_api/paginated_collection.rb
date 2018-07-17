@@ -25,7 +25,8 @@ class SpotifyApi::PaginatedCollection < ActiveResource::Collection
   def prev
     return nil unless prev_page
     @prev ||= begin
-      r = resource_class.all(params: {offset: offset_value - limit_value, limit: limit_value})
+      r = resource_class.find(:all, from: prev_page)
+      # r = resource_class.all(params: {offset: offset_value - limit_value, limit: limit_value})
       r.instance_variable_set(:@next, self)
       r
     end
@@ -34,7 +35,8 @@ class SpotifyApi::PaginatedCollection < ActiveResource::Collection
   def next
     return nil unless next_page
     @next ||= begin
-      r = resource_class.all(params: {offset: offset_value + limit_value, limit: limit_value})
+      r = resource_class.find(:all, from: next_page)
+      # r = resource_class.all(params: {offset: offset_value + limit_value, limit: limit_value})
       r.instance_variable_set(:@prev, self)
       r
     end

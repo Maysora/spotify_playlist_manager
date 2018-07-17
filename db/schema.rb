@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171223110243) do
+ActiveRecord::Schema.define(version: 20180115082006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "multi_playlist_tracks", force: :cascade do |t|
+    t.bigint "multi_playlist_id", null: false
+    t.string "spotify_id"
+    t.string "spotify_uri"
+    t.string "source_playlist_spotify_id"
+    t.string "name"
+    t.string "album_name"
+    t.string "artist_name"
+    t.boolean "local", default: false, null: false
+    t.datetime "last_sync_at", null: false
+    t.index ["multi_playlist_id"], name: "index_multi_playlist_tracks_on_multi_playlist_id"
+  end
+
+  create_table "multi_playlists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "spotify_id", null: false
+    t.string "owner_id", null: false
+    t.string "name"
+    t.text "description"
+    t.string "image_url"
+    t.boolean "public", default: false, null: false
+    t.integer "tracks_count"
+    t.string "playlist_ids", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_multi_playlists_on_user_id"
+  end
 
   create_table "spotify_configurations", force: :cascade do |t|
     t.bigint "user_id", null: false

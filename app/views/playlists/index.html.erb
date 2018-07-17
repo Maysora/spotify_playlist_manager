@@ -3,5 +3,16 @@
 <%= paginate @playlists %>
 <%= page_entries_info @playlists, entry_name: 'playlist' %>
 <table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Tracks #</th>
+      <th>Owner</th>
+      <th>Flags</th>
+      <th></th>
+    </tr>
+  </thead>
   <%= render partial: 'playlist', collection: @playlists %>
 </table>

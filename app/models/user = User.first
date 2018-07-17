@@ -1,0 +1,10 @@
+user = User.first
+RequestStore.store['current_user_spotify_token'] = user.spotify_token
+user.multi_playlists.create_with_spotify_id '3Imu5FGxSWoQjC8cAOkN2s', user.spotify_id
+mp = user.multi_playlists.create name: 'Test API', description: 'Testing only', public: false
+
+
+
+user = User.first
+RequestStore.store['current_user_spotify_token'] = user.spotify_token
+SpotifyApi::Playlist.create(user_id: user.spotify_id, name: 'Test API', public: false, description: 'Test API Playlist')

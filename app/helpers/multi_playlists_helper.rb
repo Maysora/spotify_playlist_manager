@@ -1,0 +1,2 @@
+module MultiPlaylistsHelper
+end

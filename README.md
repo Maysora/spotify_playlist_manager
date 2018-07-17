@@ -10,9 +10,21 @@ This is a personal weekend project so progress will be slow ;)
 - ~~Displaying playlists~~
 - ~~Displaying playlist tracks~~
 - Adding/removing tracks from playlist
-- Combine multiple playlists into one with periodical auto sync
-- Nicer UI
+- Multiple Playlist
+    + ~~Model~~
+    + Controller
+        * Create
+        * ~~Update~~
+        * Destroy
+    + ~~Sync process~~
+    + Scheduling
+- Nicer UI (Use React?)
 - ???
+
+# TODO
+
+- Probably should throw away active resource and use net http directly..
+- Tests
 
 # ENV variables
 
@@ -27,3 +39,4 @@ This is a personal weekend project so progress will be slow ;)
 - APP_EMAIL
 - SPOTIFY_CLIENT_ID
 - SPOTIFY_CLIENT_SECRET
+- JOB_WORKER_URL

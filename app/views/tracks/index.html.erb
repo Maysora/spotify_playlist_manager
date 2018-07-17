@@ -3,5 +3,14 @@
 <%= paginate @tracks %>
 <%= page_entries_info @tracks, entry_name: 'track' %>
 <table>
-  <%= render partial: 'track', collection: @tracks %>
+  <thead>
+    <th>#</th>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Popularity</th>
+    <th>Local</th>
+    <th>Added at</th>
+    <th>Added by</th>
+  </thead>
+  <%= render partial: 'track', collection: @tracks, locals: { offset: @tracks.offset_value } %>
 </table>

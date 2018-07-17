@@ -1,15 +1,22 @@
 <tr>
   <td>
-    <%= track.track.id %>
+    <%= track_counter + offset + 1 %>
   </td>
-  <td>
-    <%= track.track.artists.map(&:name).join(', ') %>
-    -
-    <%= track.track.name %>
-  </td>
-  <td>
-    <%= track.track.popularity %>
-  </td>
+  <% if track.track %>
+    <td>
+      <%= track.track.id %>
+    </td>
+    <td>
+      <%= track.track.artists.map(&:name).join(', ') %>
+      -
+      <%= track.track.name %>
+    </td>
+    <td>
+      <%= track.track.popularity %>
+    </td>
+  <% else # track.track is nil %>
+    <td colspan=3></td>
+  <% end %>
   <td>
     <%= track.is_local %>
   </td>

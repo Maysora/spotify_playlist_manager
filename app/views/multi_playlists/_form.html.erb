@@ -1,0 +1,2 @@
+<%= form.select :playlist_ids, @playlists.map{|p| [p.name, p.to_param]}, {}, { multiple: true } %>
+<%= form.submit %>

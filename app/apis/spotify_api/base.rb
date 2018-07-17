@@ -41,3 +41,5 @@ class SpotifyApi::Base < ActiveResource::Base
     20
   end
 end
+
+class SpotifyApi::MethodNotAllowed < StandardError ; end

@@ -1,3 +1,4 @@
+<% multi_playlist_id = @multi_playlist_ids[playlist.id] %>
 <tr>
   <td>
     <%= image_tag playlist.images.first.url, alt: 'playlist image', class: 'playlist-image' if playlist.images.first %>
@@ -15,9 +16,17 @@
     <%= playlist.owner.id %>
   </td>
   <td>
-    <%= playlist.collaborative %>
+    <p>
+      Collaborative: <%= playlist.collaborative %>
+    </p>
+    <p>
+      Public: <%= playlist.public %>
+    </p>
+    <p>
+      Multi playlist: <%= multi_playlist_id.present? %>
+    </p>
   </td>
   <td>
-    <%= playlist.public %>
+    <%= link_to 'Edit', edit_multi_playlist_path(multi_playlist_id) if multi_playlist_id.present? %>
   </td>
 </tr>
