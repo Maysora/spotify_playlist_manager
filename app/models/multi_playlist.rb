@@ -95,6 +95,10 @@ class MultiPlaylist < ApplicationRecord
     clean_up_at(time)
   end
 
+  def schedule_sync_playlists
+    PlaylistSyncJob.perform_later(self)
+  end
+
   def playlist_ids=(value)
     super value.reject(&:blank?)
   end
@@ -110,9 +114,5 @@ class MultiPlaylist < ApplicationRecord
 
   def copy_tracks
     add_tracks(playlist_id: spotify_id, user_id: owner_id)
-  end
-
-  def schedule_sync_playlists
-    PlaylistSyncJob.perform_later(self)
   end
 end

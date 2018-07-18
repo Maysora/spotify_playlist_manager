@@ -18,3 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every :day, at: '17:00' do
+  rake "playlist:sync"
+end

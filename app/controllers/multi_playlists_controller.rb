@@ -7,7 +7,7 @@ class MultiPlaylistsController < ApplicationController
 
   def edit
     @multi_playlist = current_user.multi_playlists.find(params[:id])
-    @playlists = prepare_user_playlists exclude_ids: @multi_playlist.spotify_id
+    @playlists = prepare_user_playlists exclude_ids: [@multi_playlist.spotify_id]
   end
 
   def update
