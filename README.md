@@ -40,3 +40,25 @@ This is a personal weekend project so progress will be slow ;)
 - SPOTIFY_CLIENT_ID
 - SPOTIFY_CLIENT_SECRET
 - JOB_WORKER_URL
+
+# Deployment (Using Capistrano)
+
+- Copy and modify these example files: `Capfile.example`, `config/deploy.rb.example`, `config/deploy/production.rb.example`
+- Configure your server according to https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/
+```
+deploy_to=/var/www/spotify_manager
+mkdir -p ${deploy_to}
+chown deploy:deploy ${deploy_to}
+umask 0002
+chmod g+s ${deploy_to}
+mkdir ${deploy_to}/{releases,shared}
+chown deploy ${deploy_to}/{releases,shared}
+```
+- Copy and modify `.env.example` to your server `/var/www/spotify_manager/shared/.env` (or `.rbenv-vars` if using rbenv)
+- Makes sure your server has everything required:
+    + Ruby 2.4.x with bundler gem
+    + Postgresql
+    + Puma with nginx (or other web server)
+    + Redis
+- `cap production puma:config` or `cap production puma:jungle:config`
+- `cap production initial` for the first time or `cap production deploy` to update

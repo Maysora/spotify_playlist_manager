@@ -18,3 +18,8 @@
 
 .byebug_history
 docker-compose.override.yml
+.env
+Capfile
+.ssh
+deploy.rb
+production.rb
