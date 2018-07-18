@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SyncPlaylistJobTest < ActiveJob::TestCase
+class PlaylistSyncJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

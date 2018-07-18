@@ -1,4 +1,4 @@
-class SyncPlaylistJob < ApplicationJob
+class PlaylistSyncJob < ApplicationJob
   queue_as :default
 
   rescue_from(ActiveRecord::RecordNotFound) do |exception|
