@@ -21,7 +21,7 @@ class MultiPlaylist < ApplicationRecord
   has_many :tracks, class_name: 'MultiPlaylistTrack', dependent: :destroy
 
   before_validation :create_on_spotify, unless: :spotify_id?, on: [:create]
-  after_commit :sync_playlists, if: -> (r) { r.previous_changes.has_key?(:playlist_ids) }, on: [:create, :update]
+  after_commit :schedule_sync_playlists, if: -> (r) { r.previous_changes.has_key?(:playlist_ids) }, on: [:create, :update]
 
   validates :name, :user, :spotify_id, :owner_id, presence: true
 
@@ -110,5 +110,9 @@ class MultiPlaylist < ApplicationRecord
 
   def copy_tracks
     add_tracks(playlist_id: spotify_id, user_id: owner_id)
+  end
+
+  def schedule_sync_playlists
+    PlaylistSyncJob.perform_later(self)
   end
 end
