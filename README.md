@@ -17,12 +17,13 @@ This is a personal weekend project so progress will be slow ;)
         * ~~Update~~
         * Destroy
     + ~~Sync process~~
-    + Scheduling
+    + ~~Scheduling~~
 - Nicer UI (Use React?)
 - ???
 
 # TODO
 
+- Handle rate limiting https://developer.spotify.com/documentation/web-api/#rate-limiting
 - Probably should throw away active resource and use net http directly..
 - Tests
 
@@ -43,7 +44,7 @@ This is a personal weekend project so progress will be slow ;)
 
 # Deployment (Using Capistrano)
 
-- Copy and modify these example files: `Capfile.example`, `config/deploy.rb.example`, `config/deploy/production.rb.example`
+- Copy and modify these example files: `Capfile.example`, `config/deploy/production.rb.example`
 - Configure your server according to https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/
 ```
 deploy_to=/var/www/spotify_manager
