@@ -28,6 +28,19 @@ class SpotifyApi::Playlist < SpotifyApi::Base
     super options
   end
 
+  # https://developer.spotify.com/documentation/web-api/reference/playlists/change-playlist-details/
+  def update_attributes(attributes)
+    load(attributes, false) &&
+      run_callbacks(:save) do
+        run_callbacks(:update) do
+          filtered_attributes = attributes.keys.map(&:to_sym) & updatable_attributes
+          connection.put("/v1/users/a/playlists/#{id}", encode(only: filtered_attributes), self.class.headers).tap do |response|
+            load_attributes_from_response(response)
+          end
+        end
+      end
+  end
+
   def destroy
     raise SpotifyApi::MethodNotAllowed.new('Playlist removal not supported in web API')
   end
@@ -36,5 +49,9 @@ class SpotifyApi::Playlist < SpotifyApi::Base
 
   def validate
     errors.add(:base, "Read-only")
+  end
+
+  def updatable_attributes
+    [:name, :public, :collaborative, :description]
   end
 end

@@ -73,7 +73,7 @@ class MultiPlaylist < ApplicationRecord
       PlaylistTrackSyncJob.perform_later('create', self, tracks)
     end if playlist_id != spotify_id
 
-    tracks.where(id: existing_tracks.map(&:id)).update_all(last_sync_at: time) if existing_tracks.present?
+    tracks.where(id: existing_tracks.map(&:id)).update_all(last_sync_at: time, source_playlist_spotify_id: playlist_id) if existing_tracks.present?
   end
 
   def clean_up_at(time = DateTime.now)
@@ -88,11 +88,16 @@ class MultiPlaylist < ApplicationRecord
   def sync_playlists
     copy_tracks # makes sure all tracks in spotify exists here
     time = DateTime.now
+    names = []
     Array(playlist_ids).each do |playlist_id|
       user_id, _sep, playlist_id = playlist_id.rpartition('>')
       add_tracks(playlist_id: playlist_id, user_id: user_id, time: time)
     end
     clean_up_at(time)
+  end
+
+  def schedule_update_description
+    PlaylistUpdateDescriptionJob.perform_later(self)
   end
 
   def schedule_sync_playlists
