@@ -1,3 +1,7 @@
+# No longer active in development
+
+As per [Spotify API changes](https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api) I no longer have much interest in continuing this app.
+
 # Spotify Playlist Manager
 
 Rails application for managing playlists on spotify.
